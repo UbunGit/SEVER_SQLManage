@@ -11,7 +11,7 @@ CREATE PROCEDURE p_GetUserInfo(
 IN  userName_in text      #用户名
 )  
 BEGIN 
-    select userId ,userName ,userPassWord,userTel, userLevel ,userLogState from SmartHomeUser_Table 
+    select userId ,userName ,userPassWord,userTel, userLevel ,userLogState,userImg from SmartHomeUser_Table
     where userName = userName_in or userTel = userName_in;
 
 END; 
@@ -21,4 +21,4 @@ DELIMITER ;
 
 #use SmartHomeDb;
 #select *  from SmartHomeUser_Table 
-#call p_GetUserInfo('vip123');
+call p_GetUserInfo('admin');
