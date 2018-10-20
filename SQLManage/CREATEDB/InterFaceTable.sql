@@ -75,3 +75,27 @@ logBusiness text,
 logMember text,
 logTime DATETIME
 );
+
+#功能列表
+CREATE TABLE  IF NOT EXISTS FUNCTION(
+
+  `id` varchar(50), #功能id
+  `name` VARCHAR(25), #功能名
+  `fatherid` varchar(50),#功能父id
+  `icon` VARCHAR(20),#功能icon
+  `api` VARCHAR(50), #功能api
+  `permissions` int(8),#角色
+
+  primary key (`id`)
+);
+
+#权限列表
+
+CREATE TABLE  IF NOT EXISTS PERMISSIONS(
+
+  `id` varchar(50), #权限id
+  `name` VARCHAR(25), #权限名
+  `permissions` int(8),#角色
+
+  primary key (`id`)
+);

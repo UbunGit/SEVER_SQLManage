@@ -1,31 +1,57 @@
 use SmartHomeDb;
+
+
+
 /**
-商品表
+商品分类表
  */
-CREATE TABLE  IF NOT EXISTS GOODS_T(
+CREATE TABLE  IF NOT EXISTS GOODSCATEGORY(
 
-  goodsID int auto_increment primary key, #商品ID
-  goodsNO VARCHAR(20) ,#商品编号
-
-  goodsName VARCHAR(255) NOT NULL, #商品名称
-  goodsType VARCHAR(20), #商品类别
-
-  goodsReserve VARCHAR(20), #商品库存
-
-  goodsCostPrice FLOAT, #商品成本价
-  goodsPrice     FLOAT, #商品定价
-  goodsDiscount  FLOAT, #商品折扣
-  goodsMinPrice  FLOAT, #商品最低价
-
-  goodsImage text       #商品图片
+  `id` VARCHAR(50), #分类id
+  `name` VARCHAR(25), #分类名
+  `fatherid` VARCHAR(50),#分类父id
+  `icon` VARCHAR(20),#分类icon
+  `depth` INTEGER,#深度
+  primary key (`id`)
 );
 
 /**
-商品详情表
+  * 商品属性表
  */
-CREATE TABLE  IF NOT EXISTS GOODSDES_T(
+CREATE TABLE  IF NOT EXISTS ATTRIBUTENAME(
 
-  goodsID int primary key, #商品ID
-  goodsImglist text,#商品图片","分割
-  goodsImgdeslist text #商品图片","分割
+  `id` varchar(50), #属性id
+  `name` VARCHAR(25), #属性名
+  primary key (`id`)
 );
+
+/**
+分类 属性关联表
+ */
+CREATE TABLE  IF NOT EXISTS GOODS_SPU(
+  `id` varchar(50), #属性id
+  `attributeid` VARCHAR(50), #属性id
+  `categoryid` VARCHAR(50),#分类id
+  primary key (`id`),
+  FOREIGN KEY (attributeid) REFERENCES ATTRIBUTENAME(id),
+  FOREIGN KEY (categoryid) REFERENCES GOODSCATEGORY(id)
+
+);
+
+
+/**
+商品spu表
+ */
+CREATE TABLE  IF NOT EXISTS GOODS_SPU(
+  `id` VARCHAR(50), #属性id
+  `name` VARCHAR(125), #商品名
+  `content` text, #商品描述
+  `dm_img` varchar(255), #'宣传图',
+  `dm_price` varchar(50), #'宣传价格',
+  `keywords` varchar(255), #'SEO关键词'
+  `categoryid` varchar(50), #'分类ID'
+  `mallid` varchar(50), #'店铺ID'
+  primary key (`id`),
+  FOREIGN KEY (categoryid) REFERENCES GOODSCATEGORY(id)
+);
+
